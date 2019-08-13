@@ -1,2 +1,1 @@
-# Python_Learning
-My python rode
+A boy names Logan, trys to learn Python

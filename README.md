@@ -1,1 +1,1 @@
-A boy names Logan, trys to learn Python
+# A boy names Logan, trys to learn Python

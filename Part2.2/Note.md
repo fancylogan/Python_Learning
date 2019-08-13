@@ -52,7 +52,8 @@
     re.X/VERBOSE        为了增强可读性，忽略空格和‘#’后面的注释
 
 # 两个对象
-两个对象
+
+    两个对象
     - re对象regex
     regex.search(string[, pos[, endpos]])
     regex.match(string[, pos[, endpos]])

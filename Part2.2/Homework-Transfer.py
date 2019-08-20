@@ -51,19 +51,19 @@ class TransTemp:
 
     def judge (self,typein):
         "找单位，看是C还是F"
-        if re.match ("\d+f|\d+F|\d+c|\d+C",typein,re.X):
+        if re.match ("\d+f$|\d+c$ *",typein.strip(" "),re.I):  
             C = re.search("c",typein,re.I)  #不区分大小写找C
             F = re.search("f",typein,re.I)  #不区分大小写找F
             if C :   
                 temp = re.split(C.group(0),typein)
-                temp = float(temp[0].replace(" ",""))
+                temp = float(temp[0])
                 return f'{temp}摄氏度 = {self.temptrans_c(temp)}华氏度'
             elif F :
                 temp = re.split(F.group(0),typein)
-                temp = float(temp[0].replace(" ",""))
+                temp = float(temp[0])
                 return f'{temp}华氏度 = {self.temptrans_f(temp)}摄氏度'
         else:
-                return "写的啥玩意啊，看不懂！"
+            return "写的啥玩意啊，看不懂！"
 
 
     def temptrans_c(self,tempC):
@@ -78,12 +78,20 @@ class TransTemp:
 
     
 
+class Length:
+    '''负责长度的'''
+
+    def judge(self,typein):
+        pass
+        #if re.match(,typein,re.X)
+
 
 
 def main():
-    a = TransTemp()
-    b = input("typein:")
-    print (a.judge(b))
+    while True :
+        a = TransTemp()
+        b = input("typein:")
+        print (a.judge(b))
 
 if __name__ == "__main__":
     main()

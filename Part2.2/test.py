@@ -1,7 +1,8 @@
 import re 
 
-typein = "A123F"
-if re.match ("\d+f|\d+F|\d+c|\d+C",typein):
-    print ("1")
-else:
-    print ("2")
+while True:
+    a = input("typein:")
+    if re.match ("\d+cm|\d+inch|\d+m|\d+foot *",a,re.I):
+        print ("1")
+    else:
+        print ("2")

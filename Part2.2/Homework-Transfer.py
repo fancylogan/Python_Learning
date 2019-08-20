@@ -51,7 +51,7 @@ class TransTemp:
 
     def judge (self,typein):
         "找单位，看是C还是F"
-        if re.match ("\d+f$|\d+c$ *",typein.strip(" "),re.I):  
+        if re.match ("\d+f$|\d+c$",typein.strip(" "),re.I):  
             C = re.search("c",typein,re.I)  #不区分大小写找C
             F = re.search("f",typein,re.I)  #不区分大小写找F
             if C :   
@@ -79,11 +79,51 @@ class TransTemp:
     
 
 class Length:
-    '''负责长度的'''
+    '''我是负责长度的'''
 
     def judge(self,typein):
+        if re.match ("\d+cm$|\d+inch$|\d+m$|\d+foot$",typein.strip(" "),re.I):
+            cm = re.search("cm",typein,re.I)  #不区分大小写找cm
+            m = re.search("m",typein,re.I)  #不区分大小写找m
+            foot = re.search("foot",typein,re.I)  #不区分大小写找foot
+            inch = re.search("inch",typein,re.I)  #不区分大小写找inch
+            
+            if cm :
+                length = re.split(cm.group(0),typein)
+                length = float(length[0])
+                return f'{length}厘米 = {self.m(length)}米 = {self.inch(length)}英寸 = {self.foot(length)英尺}'
+            if m :
+                length = re.split(m.group(0),typein)
+                length = float(length[0])
+                return f'{length}厘 = {self.cm(length)}厘米 = {self.inch(length)}英寸 = {self.foot(length)英尺}'
+            if foot :
+                length = re.split(foot.group(0),typein)
+                length = float(length[0])
+                return f'{length}英尺 = {self.inch(length)}英寸 = {self.m(length)}米 = {self.cm(length)厘米}'
+            if inch :
+                length = re.split(inch.group(0),typein)
+                length = float(length[0])
+                return f'{length}英寸 = {self.foot(length)}英尺 = {self.m(length)}米 = {self.cm(length)厘米}'
+        else:
+            return "写的啥玩意啊，看不懂！"
+    
+    def cm_to_inch(self,length):
         pass
-        #if re.match(,typein,re.X)
+    def inch_to_cm(self,length):
+        pass
+
+    def m_to_foot(self,length):
+        pass
+    def foot_to_m(self,length):
+        pass       
+
+    def foot_to_inch(self,length):
+        pass
+    def inch_to_foot(self,length):
+        pass
+
+
+
 
 
 

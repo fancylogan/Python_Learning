@@ -55,7 +55,8 @@ class BotBrain():
 def main():
      savedict(storage)
      AI=BotBrain()
-     bot = BotFace(BI=BotBrain())
+     #bot = BotFace(BI=BotBrain())
+     bot = BotFace(AI)
      bot.welcome()
      loop = True
      while loop:

@@ -142,3 +142,130 @@
         @brand.setter #放在def上面
         def brand （self，brand):
             raise TypeError('字符串“0)
+
+## 方法中的self是怎么回事
+
+    - 实例本身
+    - 放到第一个参数，区别于普通函数
+    - 通用名为self 
+
+    假如你有一个类成为a和这个类的一个实例b。当你调用这个对象的方法b.method(arg1, arg2) ——的时候，这会由python自动转为a.method(arg1, arg2) ——这就是self的原理
+
+    class Computer:
+    def play(self, game = ‘qq game’)
+    print(‘play,’ game)
+
+    pc1 = Computer()
+    pc1.play()
+
+    pc2 = Computer()
+    # Computer.play(pc2, game = ‘wechat game’) 与下面那句说的一样
+    pc2.play
+
+
+## 7-4 特殊方法
+
+    __init__: 把各种属性绑定到self
+    __slots__: 会限制实例的动态属性，减少内存消耗，tuple类型
+    __str__: 对象的说明文字
+    __eq__: 比较对象是否相等
+
+    classmethod 
+    staticmethod
+
+    class Computer:
+    def __init__(self, name, mem, cpu)
+    self._name = name
+    self.men = men
+    self.cpu = cpu
+    pc1 = Computer(selina, 16G, 8)
+    pc1.disk = ‘ssd’
+    # 只有PC1有
+
+
+    class Computer:
+    __slots__ = (‘_name’, ‘mem’, ‘cpu’)
+
+    不能加更多的比如pc2.disk = ‘ssd’就不能加在slots里
+
+    class Computer:
+    def __str__(self):
+    return f ‘{self.name}:{self.men}-{self.cpu}’
+    def __eq__(self, other):
+    return self.cpu == other.cpu
+
+    @classmethod  # 通过新的方法构造实例，区别于默认的__init__，类似其他语言重载
+    def new_pc(cls, info):
+    “从字符串直接产生新的实例”
+    name, men, cpu = info.split(‘-’)
+    return cls(name, mem, cpu)
+
+    @staticmethod # 不需要生成类的实例，就可以实现的方法
+    def calc(a, b, oper)
+    if oper == +:
+    return a + b
+
+
+
+
+
+## 面向对象的三大特征
+### 封装、继承、多态
+
+    # 继承，在继承里补充或者修改一些方法 
+    class Tesla(Car):     # 儿子类（父类） child(father/super)
+    def __init__(self, brand = ‘Tesla’, price = 10000, wheels = ‘4’, power = ‘electric’):
+    super().__init__(brand, price, wheels, power)
+    def run(self, action):
+    print(f ‘{self.brand} is running with {self.power}’)
+
+    t = Tesla()
+    t.price = 999
+    t.price 
+
+    如果t是子类的实例，那他也是父类的实例
+
+    # 多态 先调用自己的方法，如果自己没有，再调父类。
+
+
+
+
+    7-6 元编程
+    我是谁？
+    我从哪儿来？
+    我到哪儿去？
+
+    #运行时动态创建类和函数
+    # metaclass -> class -> object
+    # __new__
+
+    class Game:
+    pass
+
+    Game.__class__
+    #class的类型是type
+
+
+    Type是一个metaclass
+    通过type创建一个新的metaclass
+
+    class SelinaMeta(type):
+    pass
+    class Selina(metaclass = SelinaMeta):
+    pass 
+
+    Selina 是 SelinaMeta 的一个实例
+
+    Selina.__new__   # 创建并且返回一个新的object
+
+
+
+    class SelinaMeta(type):
+    def __new__(cls, name, bases, my_dict):      #classmethod 不需要在上面写@那个，											# 比较特殊
+    print (f ‘{name} 使用__new__创建’)
+    Selina_class = super().__new__(cls, name, bases, my_dict)   # 返回了新的类，
+    # super()的含义是子类去调用父类的方法
+    return Selina_class 
+
+    class Selina(metaclass = SelinaMeta): 
+    pass

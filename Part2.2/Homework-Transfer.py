@@ -233,8 +233,6 @@ class Money:
         return rmb
 
 
-
-
 def main():
     temp = TransTemp()
     length = Length()
@@ -244,9 +242,6 @@ def main():
     while True:
         mainapp.init()
         mainapp.start()
-
-
-
 
 
 if __name__ == "__main__":

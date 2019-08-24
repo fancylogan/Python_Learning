@@ -65,8 +65,11 @@ class Memo:
         else:
             try:
                 typein = int(input("告诉我你想删几号，我帮你删他："))
-                self.memo_admin.del_note(typein)
-                input("不客气老铁，我给你把"+str(typein)+"删了！")
+                if typein <= len(self._db):
+                    self.memo_admin.del_note(typein)
+                    input("不客气老铁，我给你把"+str(typein)+"删了！")
+                else:
+                    input("不行老铁，你输入的这个不行,再瞅瞅！")
             except Exception as f:
                 print ("老铁有毛病，你看：",f)
 
@@ -77,30 +80,32 @@ class Memo:
         else:
             try:
                 typein = int(input("告诉我改sei，我帮你改了他："))
-                self._ID = typein -1 
-                print("我的老铁正在修改第"+str(typein)+"条记录：")
-                self.date = input("时间改成啥：")
-                self.location = input("地点改成啥：")
-                self.thing = input('你都想干啥改成啥：')
-                self.memo_admin.modify_note (self._ID,self.date,self.location,self.thing)
-                input("不客气老铁，我给你把"+str(typein)+"改完了，你瞅瞅！")
+                if typein <= len(self._db):
+                    self._ID = typein -1 
+                    print("我的老铁正在修改第"+str(typein)+"条记录：")
+                    self.date = input("时间改成啥：")
+                    self.location = input("地点改成啥：")
+                    self.thing = input('你都想干啥改成啥：')
+                    self.memo_admin.modify_note (self._ID,self.date,self.location,self.thing)
+                    input("不客气老铁，我给你把"+str(typein)+"改完了，你瞅瞅！")
+                else:
+                    input("不行老铁，你输入的这个不行,再瞅瞅！")
             except Exception as f:
                 print("老铁有毛病，你看：",f)
 
 
     def typein_query(self):
         "查找前端"
-        if len( self._db) == 0:
+        if len(self._db) == 0:
             input ("老铁，空的，臣妾查不到啊！")       
         else:
             try:
                 typein = int(input("老铁想查个sei，给俺说："))
                 if typein <= len(self._db):
-  
                     print (f'{typein}、你要在{self._db[typein-1][0]}的时候，在{self._db[typein-1][1]}{self._db[typein-1][2]}' )
                     input("查到了老铁！")
                 else:
-                    typein("老铁，你输的数不在这里头啊！")
+                    input("老铁，你输的数不在这里头啊！")
             except Exception as f:
                 print("老铁有毛病，你看：",f)
 

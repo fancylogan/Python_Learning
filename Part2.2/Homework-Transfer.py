@@ -33,12 +33,13 @@ class Transfer():
    
     def init(self):
         '''开始菜单'''
-        print ('这是一个单位换算器'.center(30,'='))
+        print ('这是一个单位换算器'.center(40,'='))
         print ('输入你要换算的东西，数值加上单位，目前只支持如下三条：')
         print ("1、华氏度与摄氏度的转换")
         print ("2、英制长度与国际单位长度转换")
         print ("3、美元与人民币转换")
         print ("4、退出")
+        print ("-".center(40,"-"))
 
     def goodbye(self):
         "再见结束语"
@@ -53,13 +54,23 @@ class Transfer():
         inputnumber = input("大胆输入你的值：")
         return inputnumber
 
+    def choice1 (self):
+        self.temprature.welcome()
+        print(self.temprature.judge(self.inputnumber()))
+        
     def start(self):
         "主程序"
         choice = input("大胆输入你的选项吧：")
         
         if choice == "1":
-            self.temprature.welcome()
-            print(self.temprature.judge(self.inputnumber()))
+            while True:
+                self.choice1()
+                a = input("是否继续？ y/n")
+                if a == "n":
+                    break
+
+
+
         elif choice == "2":
             self.unit.welcome()
             print(self.unit.judge(self.inputnumber()))
@@ -83,7 +94,7 @@ class TransTemp:
 
     def judge (self,typein):
         "找单位，看是C还是F"
-        if re.match ("\d+f$|\d+c$",typein.strip(" "),re.I):  
+        if re.match ("\d+f$|\d+c$",typein.replace(" ",""),re.I):  
             C = re.search("c",typein,re.I)  #不区分大小写找C
             F = re.search("f",typein,re.I)  #不区分大小写找F
             if C :   
@@ -107,6 +118,8 @@ class TransTemp:
         "F转换C"
         tempC = (tempF - 32) / 1.8
         return (round(tempC,3))
+
+    
 
     
 

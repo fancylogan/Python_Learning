@@ -125,11 +125,11 @@ class MemoAdmin():
             self.savedb()
         
     def savedb (self):
-        with open ("db1.pk2","wb") as f:
+        with open ("db2.pkl","wb") as f:
             pickle.dump(self.dic,f)
 
     def readdb (self):
-        with open ("db1.pk2","rb") as f:
+        with open ("db2.pkl","rb") as f:
             self.dic = pickle.load(f)
         return self.dic
 

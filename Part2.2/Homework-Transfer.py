@@ -54,9 +54,8 @@ class Transfer():
         inputnumber = input("大胆输入你的值：")
         return inputnumber
 
-    def choice1 (self):
-        self.temprature.welcome()
-        print(self.temprature.judge(self.inputnumber()))
+
+
         
     def start(self):
         "主程序"
@@ -64,19 +63,31 @@ class Transfer():
         
         if choice == "1":
             while True:
-                self.choice1()
-                a = input("是否继续？ y/n")
+                print (self.temprature.welcome())
+                print (self.temprature.judge(self.inputnumber()))
+                print("-".center(40,"-"))
+                a = input("是否继续？ y/n: ")
                 if a == "n":
                     break
 
-
-
         elif choice == "2":
-            self.unit.welcome()
-            print(self.unit.judge(self.inputnumber()))
+            while True:
+                print(self.unit.welcome())
+                print(self.unit.judge(self.inputnumber()))
+                print("-".center(40,"-"))
+                a = input("是否继续？ y/n: ")
+                if a == "n":
+                    break
+
         elif choice == "3":
-            self.money.welcome()
-            print(self.money.judge(self.inputnumber()))
+            while True:
+                print(self.money.welcome())
+                print(self.money.judge(self.inputnumber()))
+                print("-".center(40,"-"))
+                a = input("是否继续？ y/n: ")
+                if a == "n":
+                    break
+
         elif choice == "4":
             self.goodbye()
             exit()
@@ -90,24 +101,27 @@ class Transfer():
 class TransTemp:
     """我是负责温度转换的类"""
     def welcome(self):
-        return "恭喜你选择温度转换功能！转换贼准！"
+        print ("-".center(40,'-'))
+        return "恭喜你选择温度转换功能！转换贼准！可用单位：F,C"
 
     def judge (self,typein):
         "找单位，看是C还是F"
-        if re.match ("\d+f$|\d+c$",typein.replace(" ",""),re.I):  
-            C = re.search("c",typein,re.I)  #不区分大小写找C
-            F = re.search("f",typein,re.I)  #不区分大小写找F
-            if C :   
-                temp = re.split(C.group(0),typein)
-                temp = float(temp[0])
-                return f'{temp}摄氏度 = {self.temptrans_c(temp)}华氏度'
-            elif F :
-                temp = re.split(F.group(0),typein)
-                temp = float(temp[0])
-                return f'{temp}华氏度 = {self.temptrans_f(temp)}摄氏度'
-        else:
-            return "写的啥玩意啊，看不懂！"
-
+        try:
+            if re.match ("\d+f$|\d+c$",typein.replace(" ",""),re.I):  
+                C = re.search("c",typein,re.I)  #不区分大小写找C
+                F = re.search("f",typein,re.I)  #不区分大小写找F
+                if C :   
+                    temp = re.split(C.group(0),typein)
+                    temp = float(temp[0])
+                    return f'{temp}摄氏度 = {self.temptrans_c(temp)}华氏度'
+                elif F :
+                    temp = re.split(F.group(0),typein)
+                    temp = float(temp[0])
+                    return f'{temp}华氏度 = {self.temptrans_f(temp)}摄氏度'
+            else:
+                return "写的啥玩意啊，看不懂！"
+        except Exception as e:
+            print("出了点问题，",e)
 
     def temptrans_c(self,tempC):
         "C转换F"
@@ -127,33 +141,37 @@ class Length:
     '''我是负责长度的'''
 
     def welcome(self):
-        return "恭喜你选择长度转换功能，转换贼准！"
+        print("-".center(40,"-"))
+        return "恭喜你选择长度转换功能，转换贼准！可用单位cm,m,inch,foot"
 
     def judge(self,typein):
-        if re.match ("\d+cm$|\d+inch$|\d+m$|\d+foot$",typein.replace(" ",""),re.I):
-            cm = re.search("cm",typein,re.I)  #不区分大小写找cm
-            m = re.search("m",typein,re.I)  #不区分大小写找m
-            foot = re.search("foot",typein,re.I)  #不区分大小写找foot
-            inch = re.search("inch",typein,re.I)  #不区分大小写找inch
-            
-            if cm :
-                length = re.split(cm.group(0),typein)
-                length = float(length[0])
-                return f'{length}厘米 = {round(length/100,3)}米 = {round(self.cm_to_inch(length),3)}英寸 = {round(self.inch_to_foot(self.cm_to_inch(length)),3)}英尺'
-            if m :
-                length = re.split(m.group(0),typein)
-                length = float(length[0])
-                return f'{length}厘 = {length * 100}厘米 = {round(self.foot_to_inch(self.m_to_foot(length)),3)}英寸 = {round(self.m_to_foot(length),3)}英尺'
-            if foot :
-                length = re.split(foot.group(0),typein)
-                length = float(length[0])
-                return f'{length}英尺 = {round(self.foot_to_inch(length),3)}英寸 = {round(self.foot_to_m(length),3)}米 = {round(self.foot_to_m(length)*100,3)}厘米'
-            if inch :
-                length = re.split(inch.group(0),typein)
-                length = float(length[0])
-                return f'{length}英寸 = {round(self.inch_to_foot(length),3)}英尺 = {round(self.inch_to_cm(length)/100,3)}米 = {round(self.inch_to_cm(length),3)}厘米'
-        else:
-            return "写的啥玩意啊，看不懂！"
+        try:
+            if re.match ("\d+cm$|\d+inch$|\d+m$|\d+foot$|\d+feet$",typein.replace(" ",""),re.I):
+                cm = re.search("cm",typein,re.I)  #不区分大小写找cm
+                m = re.search("m",typein,re.I)  #不区分大小写找m
+                foot = re.search("foot|feet",typein,re.I)  #不区分大小写找foot
+                inch = re.search("inch",typein,re.I)  #不区分大小写找inch
+                
+                if cm :
+                    length = re.split(cm.group(0),typein)
+                    length = float(length[0])
+                    return f'{length}厘米 = {round(length/100,3)}米 = {round(self.cm_to_inch(length),3)}英寸 = {round(self.inch_to_foot(self.cm_to_inch(length)),3)}英尺'
+                if m :
+                    length = re.split(m.group(0),typein)
+                    length = float(length[0])
+                    return f'{length}厘 = {length * 100}厘米 = {round(self.foot_to_inch(self.m_to_foot(length)),3)}英寸 = {round(self.m_to_foot(length),3)}英尺'
+                if foot :
+                    length = re.split(foot.group(0),typein)
+                    length = float(length[0])
+                    return f'{length}英尺 = {round(self.foot_to_inch(length),3)}英寸 = {round(self.foot_to_m(length),3)}米 = {round(self.foot_to_m(length)*100,3)}厘米'
+                if inch :
+                    length = re.split(inch.group(0),typein)
+                    length = float(length[0])
+                    return f'{length}英寸 = {round(self.inch_to_foot(length),3)}英尺 = {round(self.inch_to_cm(length)/100,3)}米 = {round(self.inch_to_cm(length),3)}厘米'
+            else:
+                return "写的啥玩意啊，看不懂！"
+        except Exception as e:
+            print("出了点问题",e)
     
     def cm_to_inch(self,length):
         inch = length / 2.54
@@ -183,24 +201,28 @@ class Length:
 class Money:
     """我是转换钱用的"""
     def welcome(self):
-        return "恭喜你选择美金人民币转换功能！转换贼准！"
+        print("-".center(40,"-"))
+        return "恭喜你选择美金人民币转换功能！转换贼准！可用单位：rmb,usd"
 
     def judge(self,typein):
         "判断输入是不是美金"
-        if re.match ("\d+\$$|\d+美金$|\d+美刀$|\d+USD$|\d+RMB$|\d+刀$|\d+人民币$|\d+￥$",typein.replace(" ",""),re.I):
-            USD = re.search("\$|美金|美刀|usd",typein.replace(" ",""),re.I)
-            RMB = re.search("\￥|rmb|人民币|毛爷爷",typein.replace(" ",""),re.I)
-            if USD :
-                rmb = re.split(USD.group(0),typein)
-                rmb = float(rmb[0])
-                return f'{rmb}美金现在能值个{self.usd_to_rmb(rmb)}人民币'
-            if RMB :
-                usd = re.split(RMB.group(0),typein)
-                usd = float(usd[0])
-                return f'{usd}人民币现在能值个{self.rmb_to_usd(usd)}美金'
+        try:
+            if re.match ("\d+\$$|\d+美金$|\d+美刀$|\d+USD$|\d+RMB$|\d+刀$|\d+人民币$|\d+￥$",typein.replace(" ",""),re.I):
+                USD = re.search("\$|美金|美刀|usd",typein.replace(" ",""),re.I)
+                RMB = re.search("\￥|rmb|人民币|毛爷爷",typein.replace(" ",""),re.I)
+                if USD :
+                    rmb = re.split(USD.group(0),typein)
+                    rmb = float(rmb[0])
+                    return f'{rmb}美金现在能值个{self.usd_to_rmb(rmb)}人民币'
+                if RMB :
+                    usd = re.split(RMB.group(0),typein)
+                    usd = float(usd[0])
+                    return f'{usd}人民币现在能值个{self.rmb_to_usd(usd)}美金'
 
-        else:
-            return "我也不认识我转换啥呀"
+            else:
+                return "我也不认识我转换啥呀"
+        except Exception as e :
+            print ("出了点问题:",e)
 
     def rmb_to_usd(self,money):
         usd = money * 0.1412

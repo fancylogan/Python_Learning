@@ -149,8 +149,6 @@ class MemoAdmin():
 
 
 def main():
-
-
     memoadmin = MemoAdmin()
     memo = Memo(memoadmin)
     while True:
